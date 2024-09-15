@@ -1,7 +1,4 @@
-import { BellRing, Check } from "lucide-react";
-
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,22 +7,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
 import truncateEthAddress from "truncate-eth-address";
+import { useNavigate } from "react-router-dom";
 
 const notifications = [
   {
     name: "USDC.",
+    userId: 32,
     description: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
     active: true,
   },
   {
     name: "USDT",
+    userId: 32,
     description: "0x00fdC1EeA25F1763C4b39AD4d3BC5A63B84c1538",
     active: false,
   },
   {
     name: "DODGE",
+    userId: 32,
     description: "0x00fdC1EeA25F1763C4b39AD4d3BC5A63B84c1538",
     active: true,
   },
@@ -34,6 +34,12 @@ const notifications = [
 type CardProps = React.ComponentProps<typeof Card>;
 
 export function HomeCard({ className, ...props }: CardProps) {
+  const navigate = useNavigate();
+
+  const goToTokenDetails = (userId: string | number, tokenAddress: string) => {
+    navigate(`/bot/${userId}/${tokenAddress}`);
+  };
+
   return (
     <Card className={cn("w-full bg-black text-white", className)} {...props}>
       <CardHeader>
@@ -56,6 +62,9 @@ export function HomeCard({ className, ...props }: CardProps) {
         <div className="h-[400px] overflow-scroll scrollbar-hide">
           {notifications.map((notification, index) => (
             <div
+              onClick={() =>
+                goToTokenDetails(notification.userId, notification.description)
+              }
               key={index}
               className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0 text-left hover:bg-gray-600/20 p-2 rounded-lg"
             >
