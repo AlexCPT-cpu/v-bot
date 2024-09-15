@@ -43,7 +43,7 @@ export function BotCard({ className, ...props }: CardProps) {
         <CardTitle>Volume Bots</CardTitle>
         <CardDescription>You have {"2"} active bots.</CardDescription>
       </CardHeader>
-      <CardContent className="grid gap-4">
+      <CardContent className="grid gap-4 w-full">
         {/* <div className=" flex items-center space-x-4 rounded-md border p-4">
           <BellRing />
           <div className="flex-1 space-y-1">
@@ -56,24 +56,30 @@ export function BotCard({ className, ...props }: CardProps) {
           </div>
           <Switch />
         </div> */}
-        <div className="h-[450px] overflow-scroll scrollbar-hide">
+        <div className="h-[450px] overflow-scroll scrollbar-hide w-full">
           {notifications.map((notification, index) => (
             <div
               key={index}
-              className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0 text-left hover:bg-gray-600/20 p-2 border-b border-b-white rounded-none"
+              className="w-full flex flex-row justify-between border-b border-b-white items-center p-2 mb-4 pb-3"
             >
-              <span
-                className={`flex h-2 w-2 translate-y-1 rounded-full ${
-                  notification.active ? "bg-green-500" : "bg-red-500"
-                }`}
-              />
-              <div className="space-y-1">
-                <p className="text-sm font-medium leading-none">
-                  ${notification.name}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {truncateEthAddress(notification.description)}
-                </p>
+              <div className="grid grid-cols-[25px_1fr] items-start text-left hover:bg-gray-600/20 rounded-none w-full">
+                <span
+                  className={`flex h-2 w-2 translate-y-1 rounded-full ${
+                    notification.active ? "bg-green-500" : "bg-red-500"
+                  }`}
+                />
+                <div className="space-y-1">
+                  <p className="text-sm font-medium leading-none">
+                    ${notification.name}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {truncateEthAddress(notification.description)}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center w-full justify-end">
+                <Switch className="" checked={notification.active} />
               </div>
             </div>
           ))}
