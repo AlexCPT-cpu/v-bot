@@ -5,10 +5,12 @@ const Switch = ({
   checked,
   className,
   onChange,
+  noMargin,
 }: {
   checked: boolean;
   className?: string;
   onChange: (checked: boolean) => void;
+  noMargin?: boolean;
 }) => {
   const [checkedState, setChecked] = useState(checked);
 
@@ -19,7 +21,11 @@ const Switch = ({
   };
 
   return (
-    <label className="inline-flex items-center mb-5 cursor-pointer">
+    <label
+      className={`inline-flex items-center cursor-pointer ${
+        noMargin ? "" : "mb-5"
+      }`}
+    >
       <input
         type="checkbox"
         value=""

@@ -8,34 +8,32 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { PlusIcon } from "lucide-react";
-import TokenForm from "./TokenForm";
+import { Pencil } from "lucide-react";
+import EditForm from "./EditForm";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-export function CreateModal() {
+export function EditModal() {
   const navigate = useNavigate();
   const [error, setError] = useState(true);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant="link"
-          className="transition-all duration-100 active:scale-90 border-none active:border-none focus:border-none focus:ring-0 active:ring-0 focus-visible:ring-0 bg-white"
-        >
-          <PlusIcon className="mr-2 h-4 w-4" /> Create New Bot
-        </Button>
+        <div className="relative flex items-center border border-gray-600 rounded-lg p-2 bg-gray-800 transition-all duration-100 active:scale-90">
+          <Pencil className="text-white w-4 h-4" />
+        </div>
       </DialogTrigger>
       <DialogContent className="max-w-[95%] rounded-2xl bg-black border border-white text-white">
         <DialogHeader>
-          <DialogTitle>Create Bot</DialogTitle>
+          <DialogTitle>Edit Bot</DialogTitle>
           <DialogDescription>
             <div className="mt-2">
               Enter details. and Click save when you're done.
             </div>
           </DialogDescription>
         </DialogHeader>
-        <TokenForm onError={setError} />
+        <EditForm onError={setError} />
         <DialogFooter>
           <Button
             disabled={error}

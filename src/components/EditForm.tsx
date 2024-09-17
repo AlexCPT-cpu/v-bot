@@ -39,7 +39,7 @@ const validateEthAddress = (address: string): boolean => {
   return ethers.isAddress(address);
 };
 
-const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
+const EditForm: React.FC<{ onError: (state: boolean) => void }> = ({
   onError,
 }) => {
   const {
@@ -91,9 +91,9 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
       <div>
         <Label htmlFor="privateKey">Private Key</Label>
         <Input
+          autoComplete="off"
           id="privateKey"
           type="text"
-          autoComplete="off"
           placeholder="Enter private key"
           {...register("privateKey")}
           className="mt-2"
@@ -144,4 +144,4 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
   );
 };
 
-export default TokenForm;
+export default EditForm;

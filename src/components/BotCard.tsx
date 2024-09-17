@@ -101,12 +101,12 @@ export function BotCard({ className, ...props }: CardProps) {
                 </div>
 
                 <div className="flex items-center w-full justify-end">
-                  <Switch
+                  {/* <Switch
                     checked={notification.active}
                     onChange={(checked: boolean) =>
                       handleSwitchChange(index, checked)
                     }
-                  />
+                  /> */}
                 </div>
               </div>
             );
