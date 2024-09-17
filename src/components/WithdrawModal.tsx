@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "../components/ui/dialog";
 import { TrashIcon } from "lucide-react";
 import { DialogClose } from "./ui/dialog";
 import toast from "react-hot-toast";
@@ -49,7 +49,7 @@ export function WithdrawModal() {
                 setTimeout(() => navigate("/bots"), 1500);
               }}
               className="transition-all duration-100 active:scale-90 py-5"
-              variant="solid"
+              variant="default"
               type="submit"
             >
               Confirm

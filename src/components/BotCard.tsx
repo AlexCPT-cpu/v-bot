@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import {
   Card,
   CardContent,
@@ -6,8 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import Switch from "@/components/Switch";
+} from "../components/ui/card";
 import truncateEthAddress from "truncate-eth-address";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,13 +40,16 @@ export function BotCard({ className, ...props }: CardProps) {
     navigate(`/bot/${userId}/${tokenAddress}`);
   };
 
-  const [notifications, setNotifications] = useState(initialNotifications);
+  const [
+    notifications,
+    // setNotifications
+  ] = useState(initialNotifications);
 
-  const handleSwitchChange = (index: number, checked: boolean) => {
-    const updatedNotifications = [...notifications];
-    updatedNotifications[index].active = checked;
-    setNotifications(updatedNotifications);
-  };
+  // const handleSwitchChange = (index: number, checked: boolean) => {
+  //   const updatedNotifications = [...notifications];
+  //   updatedNotifications[index].active = checked;
+  //   setNotifications(updatedNotifications);
+  // };
 
   return (
     <Card
