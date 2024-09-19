@@ -2,6 +2,16 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import mongoose from "mongoose";
 import User from "../../../../models/Schema";
 
+interface Bot {
+  tokenAddress: string;
+  privateKey: string;
+  wallet1: string;
+  wallet2: string;
+  wallet3: string;
+  wallet4: string;
+  wallet5: string;
+}
+
 // MongoDB connection without useNewUrlParser and useUnifiedTopology
 mongoose
   .connect("mongodb://localhost:27017/mydatabase") // Just pass the connection string
@@ -29,7 +39,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       if (!user) return res.status(404).json({ message: "User not found" });
 
       const bot = user.bots.find(
-        (obj) => obj.tokenAddress === req.query.tokenAddress
+        (obj: Bot) => obj.tokenAddress === req.query.tokenAddress
       );
       if (!bot) return res.status(404).json({ message: "Bot not found" });
 
