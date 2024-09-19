@@ -12,7 +12,7 @@ mongoose
     console.error("Error connecting to MongoDB:", err);
   });
 
-export default async function (req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === "POST") {
     const {
       privateKey,

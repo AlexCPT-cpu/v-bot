@@ -12,7 +12,7 @@ mongoose
     console.error("Error connecting to MongoDB:", err);
   });
 
-export default async function (req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === "GET") {
     try {
       const user = await User.findOne({ username: req.query.username });
