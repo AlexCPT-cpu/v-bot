@@ -1,9 +1,22 @@
+import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { HomeCard } from "../components/HomeCard";
 import Nav from "../components/Nav";
 import { Toaster } from "react-hot-toast";
 
 function Home() {
+  const addBot = async () => {
+    const response = await fetch(`/api/user/test`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+
+  useEffect(() => {
+    addBot();
+  });
   return (
     <div className="flex h-screen w-full transition-all duration-150 flex-col px-5 relative">
       <Toaster />
