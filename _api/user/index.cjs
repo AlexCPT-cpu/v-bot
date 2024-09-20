@@ -1,6 +1,6 @@
 // import { VercelRequest, VercelResponse } from "@vercel/node";
 const mongoose = require("mongoose");
-const User = require("../../../models/Schema.cjs");
+const User = require("../../models/Schema.cjs");
 // import mongoose from "mongoose";
 // import User from "../../../models/Schema";
 
