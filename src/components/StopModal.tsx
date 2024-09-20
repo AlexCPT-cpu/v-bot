@@ -19,7 +19,6 @@ export function StopModal({
   paused: boolean;
   setPaused: (pause: boolean) => void;
 }) {
-  console.log(paused);
   return (
     <>
       {paused ? (
