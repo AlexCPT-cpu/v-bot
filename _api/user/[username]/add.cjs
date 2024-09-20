@@ -7,7 +7,7 @@ const User = require("../../../models/Schema.cjs");
 
 // MongoDB connection without useNewUrlParser and useUnifiedTopology
 mongoose
-  .connect("mongodb://localhost:27017/mydatabase") // Just pass the connection string
+  .connect(process.env.CONNECTION_STRING) // Just pass the connection string
   .then(() => {
     console.log("Connected to MongoDB");
   })
