@@ -1,16 +1,16 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
+// import { VercelRequest, VercelResponse } from "@vercel/node";
 import mongoose from "mongoose";
 import User from "../../../../models/Schema";
 
-interface Bot {
-  tokenAddress: string;
-  privateKey: string;
-  wallet1: string;
-  wallet2: string;
-  wallet3: string;
-  wallet4: string;
-  wallet5: string;
-}
+// interface Bot {
+//   tokenAddress: string;
+//   privateKey: string;
+//   wallet1: string;
+//   wallet2: string;
+//   wallet3: string;
+//   wallet4: string;
+//   wallet5: string;
+// }
 
 // MongoDB connection without useNewUrlParser and useUnifiedTopology
 mongoose
@@ -22,7 +22,12 @@ mongoose
     console.error("Error connecting to MongoDB:", err);
   });
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(
+  req,
+  // : VercelRequest
+  res
+  // : VercelResponse
+) {
   if (req.method === "PUT") {
     const {
       privateKey,
@@ -38,8 +43,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const user = await User.findOne({ username: req.query.username });
       if (!user) return res.status(404).json({ message: "User not found" });
 
+      // const bot = user.bots.find(
+      //   (obj: Bot) => obj.tokenAddress === req.query.tokenAddress
+      // );
       const bot = user.bots.find(
-        (obj: Bot) => obj.tokenAddress === req.query.tokenAddress
+        (obj) => obj.tokenAddress === req.query.tokenAddress
       );
       if (!bot) return res.status(404).json({ message: "Bot not found" });
 
