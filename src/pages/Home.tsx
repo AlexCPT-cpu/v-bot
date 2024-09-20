@@ -7,7 +7,7 @@ import axios from "axios";
 
 function Home() {
   const addBot = async () => {
-    const response = await axios.get("/api/test");
+    const response = await axios.get("/api/user");
     console.log(response.data);
   };
 

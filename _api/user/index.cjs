@@ -22,12 +22,23 @@ module.exports = async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      const user = await User.findOne({ username: req.query.username });
-      if (!user) return res.status(404).json({ message: "User not found" });
-      res.status(200).json(user);
+      const users = await User.find({}); // This fetches all users from the collection
+      if (!users || users.length === 0) {
+        return res.status(404).json({ message: "No users found" });
+      }
+
+      res.status(200).json({ users });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: "Error fetching user data" });
+      res.status(500).json({ error: "Error retrieving users" });
     }
+    // try {
+    //   const user = await User.findOne({ username: req.query.username });
+    //   if (!user) return res.status(404).json({ message: "User not found" });
+    //   res.status(200).json(user);
+    // } catch (err) {
+    //   console.log(err);
+    //   res.status(500).json({ error: "Error fetching user data" });
+    // }
   }
 };
