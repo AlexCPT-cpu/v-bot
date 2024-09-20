@@ -1,6 +1,8 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
-import mongoose from "mongoose";
-import User from "../../../../models/Schema";
+// import { VercelRequest, VercelResponse } from "@vercel/node";
+const mongoose = require("mongoose");
+const User = require("../../../models/Schema.cjs");
+// import mongoose from "mongoose";
+// import User from "../../../models/Schema";
 
 // MongoDB connection without useNewUrlParser and useUnifiedTopology
 mongoose
@@ -12,25 +14,20 @@ mongoose
     console.error("Error connecting to MongoDB:", err);
   });
 
-export default async function handler(
+module.exports = async function handler(
   req,
   // : VercelRequest
   res
   // : VercelResponse
 ) {
-  if (req.method === "DELETE") {
+  if (req.method === "GET") {
     try {
       const user = await User.findOne({ username: req.query.username });
       if (!user) return res.status(404).json({ message: "User not found" });
-
-      // Remove bot
-      user.bots.pull({ tokenAddress: req.query.tokenAddress });
-      await user.save();
-
-      res.status(200).json({ message: "Bot deleted successfully", user });
+      res.status(200).json(user);
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: "Error deleting bot" });
+      res.status(500).json({ error: "Error fetching user data" });
     }
   }
-}
+};

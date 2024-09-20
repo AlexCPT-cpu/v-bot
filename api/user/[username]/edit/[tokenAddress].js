@@ -1,6 +1,9 @@
 // import { VercelRequest, VercelResponse } from "@vercel/node";
-import mongoose from "mongoose";
-import User from "../../../../models/Schema";
+// import mongoose from "mongoose";
+// import User from "../../../../models/Schema";
+
+const mongoose = require("mongoose");
+const User = require("../../../../models/Schema.cjs");
 
 // interface Bot {
 //   tokenAddress: string;
@@ -22,7 +25,7 @@ mongoose
     console.error("Error connecting to MongoDB:", err);
   });
 
-export default async function handler(
+module.exports = async function handler(
   req,
   // : VercelRequest
   res
@@ -69,4 +72,4 @@ export default async function handler(
       res.status(500).json({ error: "Error updating bot" });
     }
   }
-}
+};
