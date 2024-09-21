@@ -30,34 +30,44 @@ module.exports = async function handler(
       wallet3,
       wallet4,
       wallet5,
-      tokenAddress,
       amount,
+      tokenAddress,
     } = req.body;
 
-    const newObject = {
-      privateKey,
-      wallet1,
-      wallet2,
-      wallet3,
-      wallet4,
-      wallet5,
-      tokenAddress,
-      amount,
-    };
-
     try {
-      const user = await User.findOne({ username: req.query.username });
+      const { username } = req.query;
+      const newObject = {
+        privateKey,
+        wallet1,
+        wallet2,
+        wallet3,
+        wallet4,
+        wallet5,
+        tokenAddress,
+        amount,
+      };
+      // Find user by username
+      let user = await User.findOne({ username });
+      // If user doesn't exist, create a new user
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        user = new User({
+          username, // Set username field
+          chatId: username,
+          bots: [], // Initialize empty bots array
+        });
       }
 
-      user.bots.push(newObject); // Add new object to the array
+      // Add the new object to the bots array
+      user.bots.push(newObject);
       await user.save();
 
+      // Return success response
       res.status(200).json({ message: "Object added successfully", user });
     } catch (err) {
-      console.log(err);
+      console.error("Error adding object:", err);
       res.status(500).json({ error: "Error adding object" });
     }
+  } else {
+    res.status(405).json({ message: "Method not allowed" });
   }
 };
