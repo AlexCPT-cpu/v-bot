@@ -8,7 +8,9 @@ require("dotenv").config();
 
 // MongoDB connection without useNewUrlParser and useUnifiedTopology
 mongoose
-  .connect(process.env.VITE_CONNECTION_STRING) // Just pass the connection string
+  .connect(process.env.CONNECTION_STRING, {
+    serverSelectionTimeoutMS: 50000,
+  }) // Just pass the connection string
   .then(() => {
     console.log("Connected to MongoDB");
   })
