@@ -192,7 +192,7 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
           tokenAddress: token,
         };
         const response = addBot(formData);
-
+        //@ts-expect-error expe
         if (response?.status === 200) {
           console.log(formData);
           setTimeout(() => toast.success("Volume Bot Created"), 1500);
