@@ -1,6 +1,6 @@
 {
   "functions": {
-    "_api/user/[username]/add.cjs": {
+    "api/user/[username]/add.js": {
       "memory": 1024,
       "maxDuration": 60
     }
