@@ -61,9 +61,10 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
         data: { ...inputData },
       });
 
-      console.log(response?.data);
+      return response;
     } catch (error) {
       console.log(error);
+      throw new Error();
     }
   }, []);
 
@@ -190,15 +191,19 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
           amount,
           tokenAddress: token,
         };
-        addBot(formData);
-        console.log(formData, wallets);
-        setTimeout(() => toast.success("Volume Bot Created"), 1500);
+        const response = addBot(formData);
 
-        // You can now process the data, like interacting with an API
+        if (response?.status === 200) {
+          console.log(formData);
+          setTimeout(() => toast.success("Volume Bot Created"), 1500);
+        } else {
+          console.log(formData);
+          throw new Error();
+        }
       }
     } catch (error) {
       console.log(error);
-      toast.error("error creating Bot");
+      toast.error("Error creating Bot");
     }
   };
 
