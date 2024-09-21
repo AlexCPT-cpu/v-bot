@@ -1,6 +1,6 @@
 {
   "functions": {
-    "_api/user/[username]/add.js": {
+    "/api/user/[username]/add.func/index.mjs": {
       "memory": 1024,
       "maxDuration": 60
     }
