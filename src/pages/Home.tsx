@@ -1,22 +1,9 @@
-import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { HomeCard } from "../components/HomeCard";
 import Nav from "../components/Nav";
 import { Toaster } from "react-hot-toast";
-import axios from "axios";
 
 function Home() {
-  const addBot = async () => {
-    const response = await axios.get("/api/user");
-    console.log(response.data);
-  };
-
-  useEffect(() => {
-    addBot();
-  }, []);
-
-  console.log("c");
-
   return (
     <div className="flex h-screen w-full transition-all duration-150 flex-col px-5 relative">
       <Toaster />

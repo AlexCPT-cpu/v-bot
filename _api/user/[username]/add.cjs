@@ -4,10 +4,11 @@
 
 const mongoose = require("mongoose");
 const User = require("../../../models/Schema.cjs");
+require("dotenv").config();
 
 // MongoDB connection without useNewUrlParser and useUnifiedTopology
 mongoose
-  .connect(process.env.CONNECTION_STRING) // Just pass the connection string
+  .connect(process.env.VITE_CONNECTION_STRING) // Just pass the connection string
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -30,6 +31,7 @@ module.exports = async function handler(
       wallet4,
       wallet5,
       tokenAddress,
+      amount,
     } = req.body;
 
     const newObject = {
@@ -40,6 +42,7 @@ module.exports = async function handler(
       wallet4,
       wallet5,
       tokenAddress,
+      amount,
     };
 
     try {

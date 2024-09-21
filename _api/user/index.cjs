@@ -1,12 +1,14 @@
 // import { VercelRequest, VercelResponse } from "@vercel/node";
 const mongoose = require("mongoose");
 const User = require("../../models/Schema.cjs");
+require("dotenv").config();
+
 // import mongoose from "mongoose";
 // import User from "../../../models/Schema";
 
 // MongoDB connection without useNewUrlParser and useUnifiedTopology
 mongoose
-  .connect(process.env.CONNECTION_STRING) // Just pass the connection string
+  .connect(process.env.VITE_CONNECTION_STRING) // Just pass the connection string
   .then(() => {
     console.log("Connected to MongoDB");
   })
