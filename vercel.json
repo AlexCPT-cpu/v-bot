@@ -1,7 +1,12 @@
 {
   "functions": {
-    "api/*.cjs": {
-      "memory": 1024,
+    "api/**/*.js": {
+      "maxDuration": 60
+    },
+    "api/**/*.cjs": {
+      "maxDuration": 60
+    },
+    "api/**/*.mjs": {
       "maxDuration": 60
     }
   }
