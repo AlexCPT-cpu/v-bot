@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { MAINNET_PROVIDER } from "../../config/config";
+// import { MAINNET_PROVIDER } from "../../config/config";
 
 interface FormInputs {
   privateKey: string;
@@ -81,53 +81,54 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
   };
 
   // Function to send Ether equally to 5 wallets
-  async function sendEtherToWallets(
-    wallets: { address: string; privateKey: string }[],
-    totalAmount: number,
-    privateKey: string
-  ) {
-    const provider = new ethers.InfuraProvider(
-      process.env.NETWORK || "mainnet",
-      MAINNET_PROVIDER
-    );
 
-    const senderWallet = new ethers.Wallet(privateKey, provider);
+  // async function sendEtherToWallets(
+  //   wallets: { address: string; privateKey: string }[],
+  //   totalAmount: number,
+  //   privateKey: string
+  // ) {
+  //   const provider = new ethers.InfuraProvider(
+  //     process.env.NETWORK || "mainnet",
+  //     MAINNET_PROVIDER
+  //   );
 
-    const amountPerWallet = ethers.parseEther((totalAmount / 5).toString());
+  //   const senderWallet = new ethers.Wallet(privateKey, provider);
 
-    try {
-      for (let i = 0; i < wallets.length; ++i) {
-        const walletAddress = wallets[i].address;
+  //   const amountPerWallet = ethers.parseEther((totalAmount / 5).toString());
 
-        console.log(
-          `Sending ${ethers.formatEther(
-            amountPerWallet
-          )} ETH to ${walletAddress}...`
-        );
+  //   try {
+  //     for (let i = 0; i < wallets.length; ++i) {
+  //       const walletAddress = wallets[i].address;
 
-        // Sending the transaction
-        try {
-          const tx = await senderWallet.sendTransaction({
-            to: walletAddress,
-            value: amountPerWallet,
-          });
+  //       console.log(
+  //         `Sending ${ethers.formatEther(
+  //           amountPerWallet
+  //         )} ETH to ${walletAddress}...`
+  //       );
 
-          console.log(`Transaction sent to ${walletAddress}: ${tx.hash}`);
+  //       // Sending the transaction
+  //       try {
+  //         const tx = await senderWallet.sendTransaction({
+  //           to: walletAddress,
+  //           value: amountPerWallet,
+  //         });
 
-          // Wait for the transaction to be mined
-          const receipt = await tx.wait();
-          console.log(`Transaction mined: ${receipt}`);
-        } catch (txError) {
-          console.error(`Error sending to ${walletAddress}:`, txError);
-        }
-      }
-    } catch (generalError) {
-      console.error(
-        "General error occurred during the sending process:",
-        generalError
-      );
-    }
-  }
+  //         console.log(`Transaction sent to ${walletAddress}: ${tx.hash}`);
+
+  //         // Wait for the transaction to be mined
+  //         const receipt = await tx.wait();
+  //         console.log(`Transaction mined: ${receipt}`);
+  //       } catch (txError) {
+  //         console.error(`Error sending to ${walletAddress}:`, txError);
+  //       }
+  //     }
+  //   } catch (generalError) {
+  //     console.error(
+  //       "General error occurred during the sending process:",
+  //       generalError
+  //     );
+  //   }
+  // }
 
   const {
     register,
