@@ -1,8 +1,5 @@
 {
   "functions": {
-    "api/**/*.cjs": {
-      "maxDuration": 60
-    },
     "api/**/*.mjs": {
       "maxDuration": 60
     }
