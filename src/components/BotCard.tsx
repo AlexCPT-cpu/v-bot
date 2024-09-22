@@ -81,7 +81,7 @@ export function BotCard({ className, ...props }: CardProps) {
           </div>
           <Switch />
         </div> */}
-        <div className="h-[450px] overflow-scroll scrollbar-hide w-full">
+        <div className="h-[300px] overflow-scroll scrollbar-hide w-full">
           {data?.map((notification: any, index: any) => (
             <BotItem
               index={index}
