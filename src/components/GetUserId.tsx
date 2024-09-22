@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const GetUserId = () => {
   const [userId, setUserId] = useState(null);
   const [data, setData] = useState(null);
+  import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
   useEffect(() => {
     //@ts-expect-error none
@@ -17,6 +18,7 @@ const GetUserId = () => {
     }
   }, []);
 
+  const { initDataRaw, initData } = retrieveLaunchParams();
   return (
     <div>
       {userId ? (
@@ -24,12 +26,13 @@ const GetUserId = () => {
       ) : (
         <p>Unable to retrieve Telegram User ID</p>
       )}
-
       {data ? (
         <p>Your data is: {JSON.stringify(data)}</p>
       ) : (
         <p>Unable to retrieve data</p>
       )}
+      extras: {JSON.stringify(initDataRaw)}
+      extras2 {JSON.stringify(initData)}
     </div>
   );
 };
