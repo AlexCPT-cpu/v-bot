@@ -1,4 +1,3 @@
-import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +7,8 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import toast from "react-hot-toast";
 import axios from "axios";
-// import { MAINNET_PROVIDER } from "../../config/config";
+import { apiEndpoint } from "../../config/config";
+import { MAINNET_PROVIDER } from "../../config/config";
 
 interface FormInputs {
   privateKey: string;
@@ -55,19 +55,6 @@ const validateEthAddress = (address: string): boolean => {
 const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
   onError,
 }) => {
-  const addBot = useCallback(async (inputData: ApiInput) => {
-    try {
-      const response = await axios.post(`/api/user/${2024}/add`, {
-        data: { ...inputData },
-      });
-
-      return response;
-    } catch (error) {
-      console.log(error);
-      throw new Error();
-    }
-  }, []);
-
   // Function to create 5 unique wallets
   const createWallets = (amount: number) => {
     const wallets = [];
@@ -83,65 +70,66 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
 
   // Function to send Ether equally to 5 wallets
 
-  // async function sendEtherToWallets(
-  //   wallets: { address: string; privateKey: string }[],
-  //   totalAmount: number,
-  //   privateKey: string
-  // ) {
-  //   const provider = new ethers.InfuraProvider(
-  //     process.env.NETWORK || "mainnet",
-  //     MAINNET_PROVIDER
-  //   );
+  async function sendEtherToWallets(
+    wallets: { address: string; privateKey: string }[],
+    totalAmount: number,
+    privateKey: string
+  ) {
+    const provider = new ethers.InfuraProvider(
+      process.env.NETWORK || "mainnet",
+      MAINNET_PROVIDER
+    );
 
-  //   const senderWallet = new ethers.Wallet(privateKey, provider);
+    const senderWallet = new ethers.Wallet(privateKey, provider);
 
-  //   const amountPerWallet = ethers.parseEther((totalAmount / 5).toString());
+    const amountPerWallet = ethers.parseEther((totalAmount / 5).toString());
 
-  //   try {
-  //     for (let i = 0; i < wallets.length; ++i) {
-  //       const walletAddress = wallets[i].address;
+    try {
+      for (let i = 0; i < wallets.length; ++i) {
+        const walletAddress = wallets[i].address;
 
-  //       console.log(
-  //         `Sending ${ethers.formatEther(
-  //           amountPerWallet
-  //         )} ETH to ${walletAddress}...`
-  //       );
+        console.log(
+          `Sending ${ethers.formatEther(
+            amountPerWallet
+          )} ETH to ${walletAddress}...`
+        );
 
-  //       // Sending the transaction
-  //       try {
-  //         const tx = await senderWallet.sendTransaction({
-  //           to: walletAddress,
-  //           value: amountPerWallet,
-  //         });
+        // Sending the transaction
+        try {
+          const tx = await senderWallet.sendTransaction({
+            to: walletAddress,
+            value: amountPerWallet,
+          });
 
-  //         console.log(`Transaction sent to ${walletAddress}: ${tx.hash}`);
+          console.log(`Transaction sent to ${walletAddress}: ${tx.hash}`);
 
-  //         // Wait for the transaction to be mined
-  //         const receipt = await tx.wait();
-  //         console.log(`Transaction mined: ${receipt}`);
-  //       } catch (txError) {
-  //         console.error(`Error sending to ${walletAddress}:`, txError);
-  //       }
-  //     }
-  //   } catch (generalError) {
-  //     console.error(
-  //       "General error occurred during the sending process:",
-  //       generalError
-  //     );
-  //   }
-  // }
+          // Wait for the transaction to be mined
+          const receipt = await tx.wait();
+          console.log(`Transaction mined: ${receipt}`);
+        } catch (txError) {
+          console.error(`Error sending to ${walletAddress}:`, txError);
+        }
+      }
+    } catch (generalError) {
+      console.error(
+        "General error occurred during the sending process:",
+        generalError
+      );
+    }
+  }
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
+    reset,
     clearErrors,
   } = useForm<FormInputs>({
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: FormInputs) => {
+  const onSubmit = async (data: FormInputs) => {
     try {
       const isPrivateKeyValid = validatePrivateKeyWithEthers(data.privateKey);
       const isTokenValid = validateEthAddress(data.token);
@@ -179,7 +167,7 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
         const wallet4 = wallets[3].privateKey;
         const wallet5 = wallets[4].privateKey;
 
-        // sendEtherToWallets(wallets, amount, privateKey);
+        sendEtherToWallets(wallets, amount, privateKey);
 
         const formData: ApiInput = {
           privateKey,
@@ -191,15 +179,13 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
           amount,
           tokenAddress: token,
         };
-        const response = addBot(formData);
-        //@ts-expect-error expe
-        if (response?.status === 200) {
-          console.log(formData);
-          setTimeout(() => toast.success("Volume Bot Created"), 1500);
-        } else {
-          console.log(formData);
-          throw new Error();
-        }
+
+        await axios.post(`${apiEndpoint}/api/user/${2024}/add`, {
+          ...formData,
+        });
+
+        reset();
+        setTimeout(() => toast.success("Volume Bot Created"), 1500);
       }
     } catch (error) {
       console.log(error);

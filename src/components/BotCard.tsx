@@ -7,43 +7,46 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
-import truncateEthAddress from "truncate-eth-address";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Bot } from "./HomeCard";
+import axios from "axios";
+import { apiEndpoint } from "../../config/config";
+import BotItem from "./BotItem";
 
-const initialNotifications = [
-  {
-    name: "USDC.",
-    userId: 32,
-    description: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-    active: true,
-  },
-  {
-    name: "USDT",
-    userId: 32,
-    description: "0x00fdC1EeA25F1763C4b39AD4d3BC5A63B84c1538",
-    active: false,
-  },
-  {
-    name: "DODGE",
-    userId: 32,
-    description: "0x00fdC1EeA25F1763C4b39AD4d3BC5A63B84c1538",
-    active: true,
-  },
-];
 type CardProps = React.ComponentProps<typeof Card>;
 
 export function BotCard({ className, ...props }: CardProps) {
+  const userId = 2024;
+  const [data, setData] = useState<Bot[]>([]);
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const response = await axios.get(`${apiEndpoint}/api/user/${userId}`);
+        setData(response?.data?.bots);
+      } catch (error) {
+        console.log(error);
+        setData([]);
+      }
+    };
+
+    getUserData();
+  }, []);
+
+  const countActiveItems = useMemo(() => {
+    return data?.filter((item) => item.active).length;
+  }, [data]);
+
   const navigate = useNavigate();
 
-  const goToTokenDetails = (userId: string | number, tokenAddress: string) => {
-    navigate(`/bot/${userId}/${tokenAddress}`);
+  const goToTokenDetails = (
+    userId: string | number,
+    tokenAddress: string,
+    index: number
+  ) => {
+    navigate(`/bot/${userId}/${tokenAddress}/${index}`);
   };
-
-  const [
-    notifications,
-    // setNotifications
-  ] = useState(initialNotifications);
 
   // const handleSwitchChange = (index: number, checked: boolean) => {
   //   const updatedNotifications = [...notifications];
@@ -58,7 +61,9 @@ export function BotCard({ className, ...props }: CardProps) {
     >
       <CardHeader>
         <CardTitle>Volume Bots</CardTitle>
-        <CardDescription>You have {"2"} active bots.</CardDescription>
+        <CardDescription>
+          You have {countActiveItems} active bots.
+        </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4 w-full">
         {/* <div className=" flex items-center space-x-4 rounded-md border p-4">
@@ -74,45 +79,15 @@ export function BotCard({ className, ...props }: CardProps) {
           <Switch />
         </div> */}
         <div className="h-[450px] overflow-scroll scrollbar-hide w-full">
-          {notifications.map((notification, index) => {
-            return (
-              <div
-                onClick={() =>
-                  goToTokenDetails(
-                    notification.userId,
-                    notification.description
-                  )
-                }
-                key={index}
-                className="w-full flex flex-row justify-between border-b border-b-white items-center py-2 mb-4 pb-5"
-              >
-                <div className="grid grid-cols-[25px_1fr] items-start text-left hover:bg-gray-600/20 rounded-none w-full">
-                  <span
-                    className={`flex h-2 w-2 translate-y-1 rounded-full transition-colors duration-100 ${
-                      notification.active ? "bg-green-500" : "bg-red-500"
-                    }`}
-                  />
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      ${notification.name}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {truncateEthAddress(notification.description)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center w-full justify-end">
-                  {/* <Switch
-                    checked={notification.active}
-                    onChange={(checked: boolean) =>
-                      handleSwitchChange(index, checked)
-                    }
-                  /> */}
-                </div>
-              </div>
-            );
-          })}
+          {data?.map((notification, index) => (
+            <BotItem
+              index={index}
+              userId={userId}
+              key={index}
+              notification={notification}
+              goToTokenDetails={goToTokenDetails}
+            />
+          ))}
         </div>
       </CardContent>
       <CardFooter>

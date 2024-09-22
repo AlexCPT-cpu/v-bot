@@ -1,43 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "../lib/utils";
 import { Card, CardContent } from "../components/ui/card";
-import truncateEthAddress from "truncate-eth-address";
 
-const wallets = [
-  {
-    address: "0x611a917b934E3c523258a08588AA50Dc77B13190",
-    amountTokens: 4000,
-    amountETH: 0.05,
-    active: true,
-  },
-  {
-    address: "0x71c3b215ad246DD75DfCD1ED14F128060dC118bF",
-    amountTokens: 4000,
-    amountETH: 0.05,
-    active: false,
-  },
-  {
-    address: "0xA4B5c3693457248A40CFc7Aa8346c9192b91eE9E",
-    amountTokens: 4000,
-    amountETH: 0.05,
-    active: true,
-  },
-  {
-    address: "0x8bD3Afb6562d3dF1A25192A3A9B816F77e813BE1",
-    amountTokens: 4000,
-    amountETH: 0.05,
-    active: false,
-  },
-  {
-    address: "0xEA58145e3A2Ef37d2D2dFCBc8fD96f89e21f5Cbd",
-    amountTokens: 4000,
-    amountETH: 0.05,
-    active: true,
-  },
-];
+import WalletItem from "./WalletItem";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
-export function BotItemCard({ className, ...props }: CardProps) {
+export function BotItemCard({
+  className,
+  wallets,
+  tokenAddress,
+  ...props
+}: CardProps | any) {
   return (
     <Card
       className={cn("w-full bg-black text-white border-none", className)}
@@ -80,40 +54,13 @@ export function BotItemCard({ className, ...props }: CardProps) {
         </div> */}
         <div className="w-full">
           <div className="space-y-4 h-[250px] overflow-scroll scrollbar-hide w-full">
-            {wallets.map((wallet, index) => (
-              <div
+            {wallets?.map((wallet: string, index: number) => (
+              <WalletItem
+                index={index}
                 key={index}
-                className="p-2 shadow-md border-b border-b-white"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <span
-                      className={`flex h-2 w-2 rounded-full ${
-                        wallet.active ? "bg-green-500" : "bg-red-500"
-                      }`}
-                    />
-                    <p className="font-semibold text-white">
-                      Wallet {index + 1}
-                    </p>
-                  </div>
-                </div>
-                <div className="text-sm flex flex-row w-full justify-between py-2">
-                  <div className="font-semibold">Address:</div>
-                  <div>{truncateEthAddress(wallet.address)}</div>
-                </div>
-                <div className="flex flex-row w-full justify-between items-center">
-                  <div className="text-sm">
-                    <div className="font-semibold">Token Amount:</div>
-                    <div>{wallet.amountTokens}</div>
-                  </div>
-                  <div className="text-sm">
-                    <div>
-                      <span className="font-semibold">ETH Amount:</span>
-                    </div>
-                    <div>{wallet.amountETH}</div>
-                  </div>
-                </div>
-              </div>
+                wallet={wallet}
+                tokenAddress={tokenAddress}
+              />
             ))}
           </div>
         </div>

@@ -1,14 +1,24 @@
 import express from "express";
 import mongoose from "mongoose";
-import { json } from "body-parser";
-import router from "./routes";
+import bodyParser from "body-parser";
+import router from "./routes.js";
+import dotenv from "dotenv";
+import cors from "cors";
+
+const { json } = bodyParser;
+
+dotenv.config();
 
 const app = express();
+
+app.use(cors());
 app.use(json());
 
 // MongoDB connection without useNewUrlParser and useUnifiedTopology
 mongoose
-  .connect("mongodb://localhost:27017/mydatabase") // Just pass the connection string
+  .connect(
+    process.env.CONNECTION_STRING || "mongodb://localhost:27017/mydatabase"
+  ) // Just pass the connection string
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -20,7 +30,7 @@ mongoose
 app.use("/api", router);
 
 // Start server
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

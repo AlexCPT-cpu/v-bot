@@ -8,6 +8,8 @@ const walletSchema = new mongoose.Schema({
   wallet4: { type: String, required: true },
   wallet5: { type: String, required: true },
   tokenAddress: { type: String, required: true },
+  amount: { type: Number, required: true },
+  active: { type: Boolean, required: true },
 });
 
 const userSchema = new mongoose.Schema({

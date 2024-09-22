@@ -13,7 +13,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/bots" element={<Bots />} />
-          <Route path="/bot/:userId/:tokenAddress" element={<BotPage />} />
+          <Route
+            path="/bot/:userId/:tokenAddress/:index"
+            element={<BotPage />}
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
