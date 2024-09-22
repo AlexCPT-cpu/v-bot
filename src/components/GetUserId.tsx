@@ -3,7 +3,6 @@ import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 const GetUserId = () => {
   const [userId, setUserId] = useState(null);
-  const [data, setData] = useState(null);
 
   useEffect(() => {
     //@ts-expect-error none
@@ -11,7 +10,6 @@ const GetUserId = () => {
 
     if (tg?.initDataUnsafe?.user) {
       setUserId(tg.initDataUnsafe.user.id);
-      setData(tg.initDataUnsafe);
       console.log("User ID:", tg.initDataUnsafe.user.id);
     } else {
       console.log("User data not available");
