@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 const GetUserId = () => {
   const [userId, setUserId] = useState(null);
   const [data, setData] = useState(null);
-  import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
   useEffect(() => {
     //@ts-expect-error none
