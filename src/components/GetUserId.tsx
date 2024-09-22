@@ -18,7 +18,7 @@ const GetUserId = () => {
     }
   }, []);
 
-  const { initDataRaw, initData } = retrieveLaunchParams();
+  const { initData } = retrieveLaunchParams();
   return (
     <div>
       {userId ? (
@@ -26,13 +26,12 @@ const GetUserId = () => {
       ) : (
         <p>Unable to retrieve Telegram User ID</p>
       )}
-      {data ? (
-        <p>Your data is: {JSON.stringify(data)}</p>
+
+      {initData ? (
+        <p>Your Telegram data is: {JSON.stringify(initData)}</p>
       ) : (
-        <p>Unable to retrieve data</p>
+        <p>Unable to retrieve Telegram Data User ID</p>
       )}
-      extras: {JSON.stringify(initDataRaw)}
-      extras2 {JSON.stringify(initData)}
     </div>
   );
 };
