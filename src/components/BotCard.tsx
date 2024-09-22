@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "../lib/utils";
 import {
   Card,
@@ -13,11 +14,13 @@ import { Bot } from "./HomeCard";
 import axios from "axios";
 import { apiEndpoint } from "../../config/config";
 import BotItem from "./BotItem";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
 export function BotCard({ className, ...props }: CardProps) {
-  const userId = 2024;
+  const { initData } = retrieveLaunchParams();
+  const userId = initData?.user?.id;
   const [data, setData] = useState<Bot[]>([]);
 
   useEffect(() => {
@@ -32,10 +35,10 @@ export function BotCard({ className, ...props }: CardProps) {
     };
 
     getUserData();
-  }, []);
+  }, [userId]);
 
   const countActiveItems = useMemo(() => {
-    return data?.filter((item) => item.active).length;
+    return data?.filter((item: any) => item.active).length;
   }, [data]);
 
   const navigate = useNavigate();
@@ -79,10 +82,10 @@ export function BotCard({ className, ...props }: CardProps) {
           <Switch />
         </div> */}
         <div className="h-[450px] overflow-scroll scrollbar-hide w-full">
-          {data?.map((notification, index) => (
+          {data?.map((notification: any, index: any) => (
             <BotItem
               index={index}
-              userId={userId}
+              userId={userId!}
               key={index}
               notification={notification}
               goToTokenDetails={goToTokenDetails}

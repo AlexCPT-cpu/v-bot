@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "../lib/utils";
 import {
   Card,
@@ -12,6 +13,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiEndpoint } from "../../config/config";
 import HomeItem from "./HomeItem";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 type CardProps = React.ComponentProps<typeof Card>;
 export interface Bot {
@@ -27,7 +29,9 @@ export interface Bot {
 }
 
 export function HomeCard({ className, ...props }: CardProps) {
-  const userId = 2024;
+  const { initData } = retrieveLaunchParams();
+
+  const userId = initData?.user?.id;
   const [data, setData] = useState<Bot[]>([]);
   const navigate = useNavigate();
 
@@ -73,10 +77,10 @@ export function HomeCard({ className, ...props }: CardProps) {
           <Switch />
         </div> */}
         <div className="h-[400px] overflow-scroll scrollbar-hide">
-          {data?.map((notification, index) => (
+          {data?.map((notification: any, index: any) => (
             <HomeItem
               index={index}
-              userId={userId}
+              userId={userId!}
               notification={notification}
               key={index}
               goToTokenDetails={goToTokenDetails}

@@ -26,7 +26,7 @@ const GetUserId = () => {
       )}
 
       {initData ? (
-        <p>Your Telegram data is: {JSON.stringify(initData)}</p>
+        <p>Your Telegram data is: {initData.user?.id}</p>
       ) : (
         <p>Unable to retrieve Telegram Data User ID</p>
       )}

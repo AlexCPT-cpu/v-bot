@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { apiEndpoint } from "../../config/config";
 import { MAINNET_PROVIDER } from "../../config/config";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 interface FormInputs {
   privateKey: string;
@@ -55,6 +56,9 @@ const validateEthAddress = (address: string): boolean => {
 const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
   onError,
 }) => {
+  const { initData } = retrieveLaunchParams();
+  const userId = initData?.user?.id;
+
   // Function to create 5 unique wallets
   const createWallets = (amount: number) => {
     const wallets = [];
@@ -180,7 +184,7 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
           tokenAddress: token,
         };
 
-        await axios.post(`${apiEndpoint}/api/user/${2024}/add`, {
+        await axios.post(`${apiEndpoint}/api/user/${userId}/add`, {
           ...formData,
         });
 
