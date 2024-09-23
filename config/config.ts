@@ -1,6 +1,6 @@
 const apiKey = import.meta.env.VITE_MAINNET_PROVIDER;
 export const MAINNET_PROVIDER = apiKey;
-export const apiEndpoint = "http://localhost:4000";
+export const apiEndpoint = "https://v-bot-api.vercel.app";
 export const ERC20_ABI = [
   {
     constant: true,
