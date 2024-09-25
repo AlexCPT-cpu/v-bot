@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import Nav from "../components/Nav";
 import { Toaster } from "react-hot-toast";
 import { Header } from "../components/Header";
-import { BotItemCard } from "../components/BotItemCard";
+// import { BotItemCard } from "../components/BotItemCard";
 import { useEffect, useMemo, useState } from "react";
-import { WithdrawModal } from "../components/WithdrawModal";
+// import { WithdrawModal } from "../components/WithdrawModal";
 import { Pencil } from "lucide-react";
 import { StopModal } from "../components/StopModal";
 import { ethers } from "ethers";
@@ -71,13 +71,13 @@ const BotPage = () => {
   }, [tokenAddress]);
 
   return (
-    <div className="flex h-screen w-full transition-all duration-150 flex-col px-5 relative">
+    <div className="flex h-screen w-full transition-all duration-150 flex-col px-3 relative">
       <Toaster />
       <Header />
       {!!bot && (
         <>
-          <div className="bg-black text-white flex flex-col items-center mt-2 px-4 py-2">
-            <div className="w-full shadow-md p-6 space-y-4 border border-gray-600 rounded-lg bg-gray-900">
+          <div className="bg-black text-white flex flex-col items-center mt-2 px-0 py-2">
+            <div className="w-full shadow-md p-4 space-y-4 border border-gray-600 rounded-lg bg-gray-900">
               <div className="w-full flex flex-row justify-between">
                 <div className="items-start text-left hover:bg-gray-600/20 rounded-lg">
                   <span
@@ -102,29 +102,29 @@ const BotPage = () => {
               </div>
 
               <div className="flex items-center justify-between">
-                <h1 className="text-xl font-bold text-white">{name} BOT</h1>
+                <h1 className="text-lg font-bold text-white">{name} BOT</h1>
                 {/* <EditModal /> */}
-                <div className="cursor-pointer relative flex items-center border border-gray-600 rounded-lg p-2 bg-gray-800 transition-all duration-100 active:scale-90">
-                  <Pencil className="text-white w-4 h-4" />
+                <div className="cursor-pointer relative flex items-center border border-gray-600 rounded-lg p-1.5 bg-gray-800 transition-all duration-100 active:scale-90">
+                  <Pencil className="text-white w-3 h-3" />
                 </div>
               </div>
               <div className="space-y-2">
-                <p className="text-lg">
+                {/* <p className="text-lg">
                   <span className="font-semibold">User ID:</span> {userId}
-                </p>
-                <p className="text-lg">
+                </p> */}
+                <p className="text-base">
                   <span className="font-semibold">Token Address:</span>{" "}
                   {truncateEthAddress(bot.tokenAddress)}
                 </p>
-                <p className="text-lg">
-                  <span className="font-semibold">Amount:</span> {bot.amount}
+                <p className="text-base">
+                  <span className="font-semibold">Amount:</span> {bot.amount}{" "}
                   ETH
                 </p>
               </div>
               {/* Private Key Section */}
-              <div className="flex fleex-row w-full justify-between items-center space-x-8">
+              <div className="flex flex-row w-full justify-between items-center space-x-1">
                 <div className="whitespace-nowrap">Private Key:</div>
-                <div className="relative flex items-center border border-gray-600 rounded-lg p-2 bg-gray-800">
+                <div className="relative flex items-center border border-gray-600 rounded-lg p-1 bg-gray-800">
                   <input
                     type="text"
                     value={truncateEthAddress(bot.privateKey)}
@@ -139,7 +139,7 @@ const BotPage = () => {
           <h1 className="text-2xl font-bold mb-2 text-center">
             Created Wallets
           </h1>
-          <BotItemCard
+          {/* <BotItemCard
             tokenAddress={tokenAddress}
             wallets={[
               bot.wallet1,
@@ -163,7 +163,7 @@ const BotPage = () => {
               index={index!}
               tokenAddress={tokenAddress!}
             />
-          </div>
+          </div> */}
           <div className="text-center flex items-center flex-col w-full h-full">
             <div className="w-full fixed bottom-0">
               <Nav />
