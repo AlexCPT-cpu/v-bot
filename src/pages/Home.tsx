@@ -12,7 +12,7 @@ function Home() {
         Create Volume For Pairs
       </h1>
       <div className="text-center flex items-center mt-3 flex-col w-full h-full">
-        <HomeCard />
+        {/* <HomeCard /> */}
         <div className="w-full fixed bottom-0">
           <Nav />
         </div>
