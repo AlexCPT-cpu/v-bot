@@ -29,9 +29,9 @@ export interface Bot {
 }
 
 export function HomeCard({ className, ...props }: CardProps) {
-  const { initData } = retrieveLaunchParams();
+  // const { initData } = retrieveLaunchParams();
 
-  const userId = initData?.user?.id ?? 0;
+  const userId = 2024; // initData?.user?.id ?? 0;
   const [data, setData] = useState<Bot[]>([]);
   const navigate = useNavigate();
 
@@ -76,7 +76,7 @@ export function HomeCard({ className, ...props }: CardProps) {
           </div>
           <Switch />
         </div> */}
-        <div className="h-[300px] overflow-scroll scrollbar-hide">
+        <div className="h-[200px] overflow-scroll scrollbar-hide">
           {data?.map((notification: any, index: any) => (
             <HomeItem
               index={index}
