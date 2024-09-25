@@ -76,7 +76,7 @@ export function HomeCard({ className, ...props }: CardProps) {
           </div>
           <Switch />
         </div> */}
-        <div className="h-[200px] overflow-scroll scrollbar-hide">
+        <div className="h-[235px] overflow-scroll scrollbar-hide">
           {data?.map((notification: any, index: any) => (
             <HomeItem
               index={index}
