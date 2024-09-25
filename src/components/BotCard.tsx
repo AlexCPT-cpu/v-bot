@@ -14,13 +14,13 @@ import { Bot } from "./HomeCard";
 import axios from "axios";
 import { apiEndpoint } from "../../config/config";
 import BotItem from "./BotItem";
-import { retrieveLaunchParams } from "@telegram-apps/sdk";
+// import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
 export function BotCard({ className, ...props }: CardProps) {
-  const { initData } = retrieveLaunchParams();
-  const userId = initData?.user?.id;
+  // const { initData } = retrieveLaunchParams();
+  const userId = 2024; //initData?.user?.id;
   const [data, setData] = useState<Bot[]>([]);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export function BotCard({ className, ...props }: CardProps) {
           </div>
           <Switch />
         </div> */}
-        <div className="h-[300px] overflow-scroll scrollbar-hide w-full">
+        <div className="h-[235px] overflow-scroll scrollbar-hide w-full">
           {data?.map((notification: any, index: any) => (
             <BotItem
               index={index}
