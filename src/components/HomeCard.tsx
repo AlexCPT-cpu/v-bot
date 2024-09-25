@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiEndpoint } from "../../config/config";
 import HomeItem from "./HomeItem";
-import { retrieveLaunchParams } from "@telegram-apps/sdk";
+// import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 type CardProps = React.ComponentProps<typeof Card>;
 export interface Bot {
