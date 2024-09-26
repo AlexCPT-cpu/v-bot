@@ -10,11 +10,11 @@ import {
 } from "../components/ui/dialog";
 import { PlusIcon } from "lucide-react";
 import TokenForm from "./TokenForm";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export function CreateModal() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [error, setError] = useState(true);
   return (
     <Dialog>
