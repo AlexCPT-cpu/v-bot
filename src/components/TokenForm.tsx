@@ -164,7 +164,7 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
         const wallets = createWallets(5);
         const privateKey = data.privateKey;
         const token = data.token;
-        const amount = data.amount;
+        const amount = Number(data.amount);
         const wallet1 = wallets[0].privateKey;
         const wallet2 = wallets[1].privateKey;
         const wallet3 = wallets[2].privateKey;
@@ -233,7 +233,7 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
         <Label htmlFor="amount">Amount</Label>
         <Input
           id="amount"
-          type="number"
+          type="text"
           placeholder="Enter amount"
           {...register("amount", { valueAsNumber: true })} // Register with number type
           className="mt-2"
