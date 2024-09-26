@@ -39,7 +39,6 @@ export function CreateModal() {
         <DialogFooter>
           <Button
             disabled={error}
-            onClick={() => navigate("/bots")}
             className="transition-all duration-100 active:scale-90 py-5"
             type="submit"
           >

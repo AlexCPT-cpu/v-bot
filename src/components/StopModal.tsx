@@ -39,7 +39,6 @@ export function StopModal({
           ),
         1500
       );
-      setTimeout(() => window.location.reload(), 3000);
     } catch (error) {
       console.log(error);
       toast.error("error changing bot active state");

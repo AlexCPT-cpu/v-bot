@@ -126,7 +126,7 @@ export function WithdrawModal({
           toast.success("All funds and tokens sent to imported private key"),
         1500
       );
-      setTimeout(() => navigate("/bots"), 1500);
+      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
       console.log(error);
       toast.error("error removing funds and deleting bot");
