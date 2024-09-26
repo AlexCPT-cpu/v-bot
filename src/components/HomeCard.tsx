@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiEndpoint } from "../../config/config";
 import HomeItem from "./HomeItem";
-// import { retrieveLaunchParams } from "@telegram-apps/sdk";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 type CardProps = React.ComponentProps<typeof Card>;
 export interface Bot {
@@ -29,9 +29,10 @@ export interface Bot {
 }
 
 export function HomeCard({ className, ...props }: CardProps) {
-  // const { initData } = retrieveLaunchParams();
+  const { initData } = retrieveLaunchParams();
 
-  const userId = 2024; // initData?.user?.id ?? 0;
+  const userId = initData?.user?.id ?? 0;
+
   const [data, setData] = useState<Bot[]>([]);
   const navigate = useNavigate();
 
@@ -47,7 +48,7 @@ export function HomeCard({ className, ...props }: CardProps) {
     };
 
     getUserData();
-  }, []);
+  }, [userId]);
 
   const goToTokenDetails = (
     userId: string | number,
