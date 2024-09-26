@@ -204,7 +204,7 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
         <Label htmlFor="privateKey">Private Key</Label>
         <Input
           id="privateKey"
-          type="text"
+          type="password"
           autoComplete="off"
           placeholder="Enter private key"
           {...register("privateKey")}
