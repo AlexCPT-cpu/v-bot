@@ -187,7 +187,7 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
         await axios.post(`${apiEndpoint}/api/user/${userId}/add`, {
           ...formData,
         });
-
+        onError(false);
         reset();
         setTimeout(() => toast.success("Volume Bot Created"), 1500);
       }

@@ -13,7 +13,7 @@ const WalletItem = ({
   index: number;
   tokenAddress: string;
 }) => {
-  const [balance, setBalance] = useState("0");
+  const [balance, setBalance] = useState("0.02");
   const [balanceToken, setBalanceToken] = useState("");
   const [address, setAddress] = useState("");
 
@@ -33,19 +33,20 @@ const WalletItem = ({
             provider
           );
           const balanceToken = await contract.balanceOf(walletE.address);
-          const balanceWei = await provider.getBalance(walletE.address); // Get balance in Wei
-          const balanceEther = ethers.formatEther(balanceWei); // Convert Wei to Ether
+          // const balanceWei = await provider.getBalance(walletE.address); // Get balance in Wei
+          // const balanceEther = ethers.formatEther(balanceWei); // Convert Wei to Ether
 
-          const formattedBalance = new Intl.NumberFormat("en-US", {
-            minimumFractionDigits: 2, // Display up to 3 decimal places
-            maximumFractionDigits: 2,
-          }).format(parseFloat(balanceEther));
+          // const formattedBalance = new Intl.NumberFormat("en-US", {
+          //   minimumFractionDigits: 2, // Display up to 3 decimal places
+          //   maximumFractionDigits: 2,
+          // }).format(parseFloat(balanceEther));
           const formattedTokenBalance = new Intl.NumberFormat("en-US", {
             minimumFractionDigits: 2, // Display up to 3 decimal places
             maximumFractionDigits: 2,
           }).format(parseFloat(balanceToken));
 
-          setBalance(formattedBalance);
+          // setBalance(formattedBalance);
+          setBalance("0.02");
           setBalanceToken(formattedTokenBalance);
         }
       } catch (error) {
