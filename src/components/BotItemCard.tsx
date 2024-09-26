@@ -53,7 +53,7 @@ export function BotItemCard({
 
         </div> */}
         <div className="w-full">
-          <div className="space-y-4 h-[250px] overflow-scroll scrollbar-hide w-full">
+          <div className="space-y-4 h-[120px] overflow-scroll scrollbar-hide w-full">
             {wallets?.map((wallet: string, index: number) => (
               <WalletItem
                 index={index}

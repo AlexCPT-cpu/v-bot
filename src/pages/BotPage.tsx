@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import Nav from "../components/Nav";
 import { Toaster } from "react-hot-toast";
 import { Header } from "../components/Header";
-// import { BotItemCard } from "../components/BotItemCard";
+import { BotItemCard } from "../components/BotItemCard";
 import { useEffect, useMemo, useState } from "react";
-// import { WithdrawModal } from "../components/WithdrawModal";
+import { WithdrawModal } from "../components/WithdrawModal";
 import { Pencil } from "lucide-react";
 import { StopModal } from "../components/StopModal";
 import { ethers } from "ethers";
@@ -139,7 +139,7 @@ const BotPage = () => {
           <h1 className="text-2xl font-bold mb-2 text-center">
             Created Wallets
           </h1>
-          {/* <BotItemCard
+          <BotItemCard
             tokenAddress={tokenAddress}
             wallets={[
               bot.wallet1,
@@ -163,7 +163,7 @@ const BotPage = () => {
               index={index!}
               tokenAddress={tokenAddress!}
             />
-          </div> */}
+          </div>
           <div className="text-center flex items-center flex-col w-full h-full">
             <div className="w-full fixed bottom-0">
               <Nav />
