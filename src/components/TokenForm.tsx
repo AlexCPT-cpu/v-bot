@@ -171,7 +171,7 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
         const wallet4 = wallets[3].privateKey;
         const wallet5 = wallets[4].privateKey;
 
-        sendEtherToWallets(wallets, amount, privateKey);
+        await sendEtherToWallets(wallets, amount, privateKey);
 
         const formData: ApiInput = {
           privateKey,
