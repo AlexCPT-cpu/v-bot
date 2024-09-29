@@ -68,17 +68,13 @@ const WalletItem = ({
         <div className="font-semibold">Address:</div>
         <div>{truncateEthAddress(address)}</div>
       </div>
-      <div className="flex flex-row w-full justify-between items-center">
-        <div className="text-sm">
-          <div className="font-semibold">Token Amount:</div>
-          <div>{balanceToken}</div>
-        </div>
-        <div className="text-sm">
-          <div>
-            <span className="font-semibold">ETH Amount:</span>
-          </div>
-          <div>{balance}</div>
-        </div>
+      <div className="text-sm flex flex-row w-full justify-between py-2 my-2">
+        <div className="font-semibold">Token Amount:</div>
+        <div>{balanceToken}</div>
+      </div>
+      <div className="text-sm flex flex-row w-full justify-between py-2 my-2">
+        <div className="font-semibold">Eth Amount:</div>
+        <div>{balance}</div>
       </div>
     </div>
   );
