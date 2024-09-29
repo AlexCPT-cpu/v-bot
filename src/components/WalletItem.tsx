@@ -21,14 +21,11 @@ const WalletItem = ({
     const getName = async () => {
       try {
         if (wallet && tokenAddress) {
-          // const provider = new ethers.InfuraProvider(
-          //   import.meta.env.VITE_NETWORK || "mainnet",
-          //   MAINNET_PROVIDER
-          // );
           const provider = new ethers.InfuraProvider(
-            "mainnet",
+            import.meta.env.VITE_NETWORK || "mainnet",
             MAINNET_PROVIDER
           );
+
           const walletE = new ethers.Wallet(wallet, provider);
           setAddress(walletE.address);
           const contract = new ethers.Contract(

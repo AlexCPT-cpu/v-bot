@@ -51,10 +51,15 @@ const BotPage = () => {
     const getName = async () => {
       try {
         if (tokenAddress) {
+          // const provider = new ethers.InfuraProvider(
+          //   import.meta.env.VITE_NETWORK || "mainnet",
+          //   MAINNET_PROVIDER
+          // );
           const provider = new ethers.InfuraProvider(
-            import.meta.env.VITE_NETWORK || "mainnet",
+            "mainnet",
             MAINNET_PROVIDER
           );
+
           const contract = new ethers.Contract(
             tokenAddress,
             ERC20_ABI,
