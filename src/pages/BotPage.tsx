@@ -117,8 +117,8 @@ const BotPage = () => {
                   {truncateEthAddress(bot.tokenAddress)}
                 </p>
                 <p className="text-base">
-                  <span className="font-semibold">Amount:</span> {bot.amount}{" "}
-                  ETH
+                  <span className="font-semibold">Volume Amount:</span>{" "}
+                  {bot.amount} ETH
                 </p>
               </div>
               {/* Private Key Section */}
@@ -127,7 +127,11 @@ const BotPage = () => {
                 <div className="relative flex items-center border border-gray-600 rounded-lg p-1 bg-gray-800">
                   <input
                     type="text"
-                    value={truncateEthAddress(bot.privateKey)}
+                    value={truncateEthAddress(
+                      String(bot.privateKey).startsWith("0x")
+                        ? bot.privateKey
+                        : `0x${bot.privateKey}`
+                    )}
                     className="bg-transparent text-white w-full focus:outline-none text-center"
                     placeholder="Enter Private Key"
                     readOnly

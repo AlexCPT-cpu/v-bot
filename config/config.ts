@@ -223,3 +223,4 @@ export const ERC20_ABI = [
     type: "event",
   },
 ];
+export const NETWORK = "sepolia";

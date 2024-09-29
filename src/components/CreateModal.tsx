@@ -1,6 +1,7 @@
 import { Button } from "../components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -37,13 +38,15 @@ export function CreateModal() {
         </DialogHeader>
         <TokenForm onError={setError} />
         <DialogFooter>
-          <Button
-            disabled={error}
-            className="transition-all duration-100 active:scale-90 py-5"
-            type="submit"
-          >
-            Save changes
-          </Button>
+          <DialogClose asChild>
+            <Button
+              disabled={error}
+              className="transition-all duration-100 active:scale-90 py-5"
+              type="submit"
+            >
+              Save changes
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

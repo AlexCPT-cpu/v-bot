@@ -165,15 +165,16 @@ export function WithdrawModal({
                 Close
               </Button>
             </DialogClose>
-
-            <Button
-              onClick={() => submitForm()}
-              className="transition-all duration-100 active:scale-90 py-5"
-              variant="default"
-              type="submit"
-            >
-              Confirm
-            </Button>
+            <DialogClose asChild>
+              <Button
+                onClick={() => submitForm()}
+                className="transition-all duration-100 active:scale-90 py-5"
+                variant="default"
+                type="submit"
+              >
+                Confirm
+              </Button>
+            </DialogClose>
           </div>
         </DialogFooter>
       </DialogContent>
