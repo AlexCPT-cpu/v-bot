@@ -13,8 +13,10 @@ const WalletItem = ({
   index: number;
   tokenAddress: string;
 }) => {
-  const [balance, setBalance] = useState("0");
-  const [balanceToken, setBalanceToken] = useState("");
+  // const [balance, setBalance] = useState("1");
+  // const [balanceToken, setBalanceToken] = useState("0");
+  const [balance] = useState("1");
+  const [balanceToken] = useState("0");
   const [address, setAddress] = useState("");
 
   useEffect(() => {
@@ -45,9 +47,9 @@ const WalletItem = ({
             minimumFractionDigits: 2, // Display up to 3 decimal places
             maximumFractionDigits: 2,
           }).format(parseFloat(balanceToken));
-          console.log(formattedBalance);
-          setBalance("1");
-          setBalanceToken(formattedTokenBalance);
+          console.log(formattedBalance, formattedTokenBalance);
+          // setBalance("1");
+          // setBalanceToken(formattedTokenBalance);
         }
       } catch (error) {
         console.log(error);
