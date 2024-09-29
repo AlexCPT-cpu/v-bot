@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +9,7 @@ import { Label } from "./ui/label";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { apiEndpoint } from "../../config/config";
-import { MAINNET_PROVIDER } from "../../config/config";
+// import { MAINNET_PROVIDER } from "../../config/config";
 import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 interface FormInputs {
@@ -74,87 +75,87 @@ const TokenForm: React.FC<{ onError: (state: boolean) => void }> = ({
 
   // Function to send Ether equally to 5 wallets
 
-  async function sendEtherToWallets(
-    wallets: { address: string; privateKey: string }[],
-    totalAmount: number,
-    privateKey: string
-  ) {
-    const provider = new ethers.InfuraProvider(
-      import.meta.env.VITE_NETWORK || "mainnet",
-      MAINNET_PROVIDER
-    );
-    // const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
+  // async function sendEtherToWallets(
+  //   wallets: { address: string; privateKey: string }[],
+  //   totalAmount: number,
+  //   privateKey: string
+  // ) {
+  //   const provider = new ethers.InfuraProvider(
+  //     import.meta.env.VITE_NETWORK || "mainnet",
+  //     MAINNET_PROVIDER
+  //   );
+  //   // const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
 
-    const senderWallet = new ethers.Wallet(privateKey, provider);
+  //   const senderWallet = new ethers.Wallet(privateKey, provider);
 
-    const amountPerWallet = ethers.parseEther((totalAmount / 5).toString());
-    try {
-      // Fetch the balance of the sender wallet
-      const senderBalance = await provider.getBalance(senderWallet.address);
+  //   const amountPerWallet = ethers.parseEther((totalAmount / 5).toString());
+  //   try {
+  //     // Fetch the balance of the sender wallet
+  //     const senderBalance = await provider.getBalance(senderWallet.address);
 
-      // Estimate gas price and gas limit
-      const feeData = await provider.getFeeData();
-      const gasPrice = feeData.gasPrice || ethers.parseUnits("20", "gwei");
-      const gasLimit = BigInt(21000); // Standard gas limit for ETH transfers
+  //     // Estimate gas price and gas limit
+  //     const feeData = await provider.getFeeData();
+  //     const gasPrice = feeData.gasPrice || ethers.parseUnits("20", "gwei");
+  //     const gasLimit = BigInt(21000); // Standard gas limit for ETH transfers
 
-      // Calculate the total gas cost for one transaction
-      const gasCost = gasPrice * gasLimit;
+  //     // Calculate the total gas cost for one transaction
+  //     const gasCost = gasPrice * gasLimit;
 
-      // Total amount to send including gas cost for each transaction
-      const totalCostPerWallet = amountPerWallet + gasCost;
+  //     // Total amount to send including gas cost for each transaction
+  //     const totalCostPerWallet = amountPerWallet + gasCost;
 
-      // Ensure the sender has enough ETH to cover all transactions
-      const totalRequiredBalance = totalCostPerWallet * BigInt(wallets.length);
+  //     // Ensure the sender has enough ETH to cover all transactions
+  //     const totalRequiredBalance = totalCostPerWallet * BigInt(wallets.length);
 
-      if (senderBalance < totalRequiredBalance) {
-        toast.error("Insufficient funds to send ETH and cover gas fees.");
-        throw new Error("Insufficient funds to send ETH and cover gas fees.");
-      }
+  //     if (senderBalance < totalRequiredBalance) {
+  //       toast.error("Insufficient funds to send ETH and cover gas fees.");
+  //       throw new Error("Insufficient funds to send ETH and cover gas fees.");
+  //     }
 
-      for (let i = 0; i < wallets.length; ++i) {
-        const walletAddress = wallets[i].address;
+  //     for (let i = 0; i < wallets.length; ++i) {
+  //       const walletAddress = wallets[i].address;
 
-        console.log(
-          `Sending ${ethers.formatEther(
-            amountPerWallet
-          )} ETH to ${walletAddress} ...`
-        );
+  //       console.log(
+  //         `Sending ${ethers.formatEther(
+  //           amountPerWallet
+  //         )} ETH to ${walletAddress} ...`
+  //       );
 
-        // Check if sender wallet still has enough balance after each transaction
-        const currentBalance = await provider.getBalance(senderWallet.address);
-        if (currentBalance < totalCostPerWallet) {
-          console.error(
-            `Insufficient funds to send to ${walletAddress} after previous transactions.`
-          );
-          break;
-        }
+  //       // Check if sender wallet still has enough balance after each transaction
+  //       const currentBalance = await provider.getBalance(senderWallet.address);
+  //       if (currentBalance < totalCostPerWallet) {
+  //         console.error(
+  //           `Insufficient funds to send to ${walletAddress} after previous transactions.`
+  //         );
+  //         break;
+  //       }
 
-        try {
-          const tx = await senderWallet.sendTransaction({
-            to: walletAddress,
-            value: amountPerWallet,
+  //       try {
+  //         const tx = await senderWallet.sendTransaction({
+  //           to: walletAddress,
+  //           value: amountPerWallet,
 
-            gasLimit: gasLimit, // Ensure to specify the gas limit
-            gasPrice: gasPrice, // Use the estimated gas price
-          });
+  //           gasLimit: gasLimit, // Ensure to specify the gas limit
+  //           gasPrice: gasPrice, // Use the estimated gas price
+  //         });
 
-          console.log(`Transaction sent to ${walletAddress}: ${tx.hash}`);
-          const receipt = await tx.wait();
-          console.log(`Transaction mined: ${receipt}`);
-        } catch (txError) {
-          throw new Error(
-            `Transaction failed for ${walletAddress}: ${txError}`
-          );
-        }
-      }
-    } catch (generalError) {
-      console.error(
-        "General error occurred during the sending process:",
-        generalError
-      );
-      throw new Error();
-    }
-  }
+  //         console.log(`Transaction sent to ${walletAddress}: ${tx.hash}`);
+  //         const receipt = await tx.wait();
+  //         console.log(`Transaction mined: ${receipt}`);
+  //       } catch (txError) {
+  //         throw new Error(
+  //           `Transaction failed for ${walletAddress}: ${txError}`
+  //         );
+  //       }
+  //     }
+  //   } catch (generalError) {
+  //     console.error(
+  //       "General error occurred during the sending process:",
+  //       generalError
+  //     );
+  //     throw new Error();
+  //   }
+  // }
   //0x0d89d0b5b4fa657f66caa7c1c73091f267554ac9f6dbef75636ab869effa1847
   //0xdAC17F958D2ee523a2206206994597C13D831ec7
   const {
