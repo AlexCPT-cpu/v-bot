@@ -22,10 +22,15 @@ const HomeItem = ({
     const getName = async () => {
       try {
         if (notification.tokenAddress) {
+          // const provider = new ethers.InfuraProvider(
+          //   import.meta.env.VITE_NETWORK || "mainnet",
+          //   MAINNET_PROVIDER
+          // );
           const provider = new ethers.InfuraProvider(
-            import.meta.env.VITE_NETWORK || "mainnet",
+            "mainnet",
             MAINNET_PROVIDER
           );
+
           const contract = new ethers.Contract(
             notification.tokenAddress,
             ERC20_ABI,
