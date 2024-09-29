@@ -21,8 +21,12 @@ const WalletItem = ({
     const getName = async () => {
       try {
         if (wallet && tokenAddress) {
+          // const provider = new ethers.InfuraProvider(
+          //   import.meta.env.VITE_NETWORK || "mainnet",
+          //   MAINNET_PROVIDER
+          // );
           const provider = new ethers.InfuraProvider(
-            import.meta.env.VITE_NETWORK || "mainnet",
+            "mainnet",
             MAINNET_PROVIDER
           );
           const walletE = new ethers.Wallet(wallet, provider);
@@ -44,8 +48,8 @@ const WalletItem = ({
             minimumFractionDigits: 2, // Display up to 3 decimal places
             maximumFractionDigits: 2,
           }).format(parseFloat(balanceToken));
-
-          setBalance(formattedBalance);
+          console.log(formattedBalance);
+          setBalance("1");
           setBalanceToken(formattedTokenBalance);
         }
       } catch (error) {
